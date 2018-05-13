@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>students</title>
+</head>
+<body>
+<h2>hello</h2>
+<form method="post" action="/web/lg">
+    用户名：<input type="text"  name="username" />
+    密码：<input type="text"  name="password"/>
+    <input type="submit" value="ok" /></form>
+<div style="color: red" th:text="${warning}"></div>
+</body>
+</html>

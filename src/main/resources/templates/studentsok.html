@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>studentsok</title>
+</head>
+<body bgcolor="aqua">
+<h2>hello</h2>
+<div th:text="${users}"></div>
+<form method="get" action="/examtest/exam">
+    <!-- 选择迭代器 需要把迭代的内容放到 select里面进行迭代-->
+    <select name="id" >
+        <option selected="selected" >请选择你要考试的科目</option>
+        <div th:each="subject:${subject}">
+        <option  th:value="${subject.id}"><div th:text="${subject.SubjectName}"/></option>
+        </div>
+    </select>
+    <input type="submit" value="ok" /></form>
+<form method="get" action="/examtest/grade">
+    <!-- 选择迭代器 需要把迭代的内容放到 select里面进行迭代-->
+    <h3>查询已经打分的成绩</h3>
+    <input type="hidden" name="student_id" th:value="${session.student.id}"/>
+    <input type="submit" value="查询" /></form>
+</body>
+</html>
