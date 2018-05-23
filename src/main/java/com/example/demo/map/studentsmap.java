@@ -19,6 +19,9 @@ public interface studentsmap {
     //修改一个学生的密码
     @Update("update students set password=#{password} where id=#{id}")
     public int updatastudents(students students);
+    //添加考试
+    @Update("update students set rights=#{rights} where id=#{id}")
+    public int updatastudents_exam(students students);
     //删除一个学生信息
     @Delete("delete from students where id=#{id}")
     public int deletestudents(Integer id);
