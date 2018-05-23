@@ -2,7 +2,7 @@ package com.example.demo.domain;
 
 public class easyexams_option {
     private Integer id;
-    private String option;
+    private String options;
     private Integer choose;
     private  Integer tf;
 
@@ -15,11 +15,11 @@ public class easyexams_option {
     }
 
     public String getOption() {
-        return option;
+        return options;
     }
 
-    public void setOption(String option) {
-        this.option = option;
+    public void setOption(String options) {
+        this.options = options;
     }
 
     public Integer getChoose() {

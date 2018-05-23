@@ -16,6 +16,9 @@ import java.util.List;
 
 ;
 
+/**
+ *
+ */
 @Controller
 @RequestMapping(value = "web")
 public class Student_index

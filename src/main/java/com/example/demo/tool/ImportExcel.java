@@ -18,6 +18,7 @@ public class ImportExcel {
     public Workbook getWorkbook(InputStream inputStr,String str)throws Exception{
         Workbook wb=null;
         String filetype=str.substring(str.lastIndexOf("."));
+        System.out.print("   文件类型"+filetype);
         if(excel2003L.equals(filetype)){
             wb=new HSSFWorkbook(inputStr);
         }
@@ -26,6 +27,7 @@ public class ImportExcel {
         }else {
             throw new Exception("解析的文件有误");
         }
+        System.out.print("wb");
         return wb;
 
     }
@@ -49,11 +51,12 @@ public class ImportExcel {
             //遍历当前的行数
             for (int j=sheet.getFirstRowNum();j<sheet.getLastRowNum();j++){
                     row=sheet.getRow(j);
-                    if (row==null||row.getFirstCellNum()==j){continue;}
+                    //if (row==null||row.getFirstCellNum()==j){continue;}
                     //遍历所有的属性
                     List<Object> list1=new ArrayList<Object>();
                     for (int y=row.getFirstCellNum();y<row.getLastCellNum();y++){
                             cell=row.getCell(y);
+                            System.out.print("cell----------");
                             list1.add(cell);
                     }
                     list.add(list1);

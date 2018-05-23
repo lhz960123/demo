@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" ></link>
+    <script src="../assets/js/jquery-1.11.3.min.js"></script>
+    <title>Title</title>
+    <script type="text/javascript">
+        //ajax 方式上传文件操作
+        // $(document).ready(function(){
+        //     $('#btn').click(function(){
+        //         if(checkData()){
+        //             $('#form1').ajaxSubmit({
+        //                 url:'excel/up',
+        //                 dataType: 'text',
+        //                 success: resutlMsg,
+        //                 error: errorMsg
+        //             });
+        //             function resutlMsg(msg){
+        //                 alert(msg);
+        //                 $("#upfile").val("");
+        //             }
+        //             function errorMsg(){
+        //                 alert("导入excel出错！");
+        //             }
+        //         }
+        //     });
+        // });
+    </script>
+</head>
+<body>
+        <form action="/teacher/upanswer" method="get">
+            填空题：<input type="text" name="up_answer" />
+            答案：<input type="text" name="up_answer_tf" />
+            专业：<select name="id" >
+            <option selected="selected" >请选择你上传的专业</option>
+            <div th:each="subject:${session.subject}">
+                <option  th:value="${subject.id}"><div th:text="${subject.SubjectName}"/></option>
+            </div>
+        </select>
+            <input type="submit" value="上传填空题" />
+        </form>
+        <form action="/teacher/upchoose" method="get">
+            选择题：<input type="text" name="up_choose" />
+            选项A：<input type="text" name="up_option1" />
+            选项B：<input type="text" name="up_option2" />
+            选项C：<input type="text" name="up_option3" />
+            正确选项：<input type="text" name="up_option_tf" />
+            专业：<select name="id" >
+            <option selected="selected" >请选择你上传的专业</option>
+            <div th:each="subject:${session.subject}">
+                <option  th:value="${subject.id}"><div th:text="${subject.SubjectName}"/></option>
+            </div>
+        </select>
+            <input type="submit" value="上传选择题" />
+        </form>
+        <form method="POST"  enctype="multipart/form-data" id="form1" action="/excel/up">
+            <table>
+                <tr>
+                    <td>上传文件: </td>
+                    <td> <input id="upfile" type="file" name="upfile" /></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="提交"  /></td>
+                </tr>
+            </table>
+        </form>
+</body>
+</html>

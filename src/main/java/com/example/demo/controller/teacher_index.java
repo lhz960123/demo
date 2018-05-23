@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.*;
-import com.example.demo.map.teachermap;
+import com.example.demo.map.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +18,8 @@ import java.util.List;
 public class teacher_index {
     @Autowired
     teachermap t;
+    @Autowired
+    examsmap exams;
     //登录接口
     @RequestMapping(value = "login" ,method = RequestMethod.GET)
     public String login(){
@@ -62,7 +64,10 @@ public class teacher_index {
                 if(list_answer.size()==0&&list_choose.size()==0){
                     model.addAttribute("warning","没有学生有考试");
                 }
-                return "teachersok";
+                List<subject> list=new ArrayList<subject>();
+                list=exams.subjectall();
+                session.setAttribute("subject",list);
+                return "teacherwork";
             }else{
                 model.addAttribute("warning","请检查密码");
 
@@ -90,5 +95,31 @@ public class teacher_index {
             t.update_choose_grade(Integer.parseInt(chooses_id[j]),Integer.parseInt(chooses_grade[j]));
         }
         return "teacher_login";
+    }
+    //上传单给填空题
+    @RequestMapping(value = "upanswer" ,method = RequestMethod.GET)
+    public String upanswer(@RequestParam("up_answer") String up_answer,@RequestParam("up_answer_tf") String up_tf,@RequestParam("id") Integer subject_id){
+            t.up_answer(up_answer,up_tf,subject_id);
+            return "teacherwork";
+    }
+    //上传单给选择题
+    @RequestMapping(value = "upchoose" ,method = RequestMethod.GET)
+    public String upchoose(@RequestParam("up_choose") String up_answer,@RequestParam("up_option1") String up_option1,@RequestParam("up_option2") String up_option2,@RequestParam("up_option3") String up_option3,@RequestParam("up_option_tf") String up_option_tf,@RequestParam("id") Integer subject_id){
+        t.up_choose(up_answer,subject_id);
+        easyexams_choose easyexams_choose=t.easyexams_choose_check_S(up_answer);
+        if(up_option1.equals(up_option_tf)){
+            t.up_option(up_option1,easyexams_choose.getId(),2);
+            t.up_option(up_option2,easyexams_choose.getId(),1);
+            t.up_option(up_option3,easyexams_choose.getId(),1);
+        }else if(up_option2.equals(up_option_tf)){
+            t.up_option(up_option1,easyexams_choose.getId(),1);
+            t.up_option(up_option2,easyexams_choose.getId(),2);
+            t.up_option(up_option3,easyexams_choose.getId(),1);
+        }else {
+            t.up_option(up_option1,easyexams_choose.getId(),1);
+            t.up_option(up_option2,easyexams_choose.getId(),1);
+            t.up_option(up_option3,easyexams_choose.getId(),3);
+        }
+        return "teacherwork";
     }
 }

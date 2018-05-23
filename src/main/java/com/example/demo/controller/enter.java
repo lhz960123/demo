@@ -9,6 +9,12 @@ public class enter {
     public String enter(){
         return "index";
     }
+    @RequestMapping({"/fram"})
+    public String fram(){
+        return "fram";
+    }
+    @RequestMapping({"/admin"})
+    public String admin(){return  "admin";}
     @RequestMapping({"/list/list"})
     public String list(){
         return "list";

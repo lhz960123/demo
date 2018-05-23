@@ -2,7 +2,7 @@ package com.example.demo.domain;
 
 public class subject {
     private Integer id;
-    private String SubjectName;
+    private String subjectname;
 
     public Integer getId() {
         return id;
@@ -13,10 +13,10 @@ public class subject {
     }
 
     public String getSubjectName() {
-        return SubjectName;
+        return subjectname;
     }
 
     public void setSubjectName(String subjectName) {
-        SubjectName = subjectName;
+        subjectname = subjectName;
     }
 }

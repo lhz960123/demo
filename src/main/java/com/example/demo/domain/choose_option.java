@@ -13,6 +13,8 @@ public class choose_option {
     //答案3题号信息
     private  Integer option_id3;
     private String option3;
+    //对应导航链接
+    private Integer qu_choose;
 
     public Integer getChoose_id() {
         return choose_id;
@@ -78,5 +80,11 @@ public class choose_option {
         this.option3 = option3;
     }
 
+    public Integer getQu_choose() {
+        return qu_choose;
+    }
 
+    public void setQu_choose(Integer qu_choose) {
+        this.qu_choose = qu_choose;
+    }
 }

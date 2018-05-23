@@ -54,6 +54,7 @@ public class stu_exam_test {
         int an=0;
         List<Integer> andom=new ArrayList<Integer>();
         List<easyexams_answer> list_answernew=new ArrayList<easyexams_answer>();
+        List<answer_look> looks=new ArrayList<answer_look>();
         while (an<5){
             int ran=(int)(Math.random()*list_answer.size());
             if(andom.size()!=0){
@@ -66,8 +67,11 @@ public class stu_exam_test {
             }else{
                 System.out.print(ran);
                 andom.add(ran);
+                answer_look answer_look=new answer_look();
+                answer_look.setEasyexams_answer(list_answer.get(ran));
+                answer_look.setQu_answer("an"+(an-1));
                 an++;
-                list_answernew.add(list_answer.get(ran));
+                looks.add(answer_look);
             }
         }
 
@@ -95,11 +99,12 @@ public class stu_exam_test {
                     choose_option.setOption3(list_option.get(i).getOption());
                 }
             }
+            choose_option.setQu_choose(in);
             in++;
             list_c_o.add(choose_option);
 
         }
-        model.addAttribute("answer",list_answernew);
+        model.addAttribute("answer_look",looks);
         model.addAttribute("c_o",list_c_o);
         return "exams";
     }
