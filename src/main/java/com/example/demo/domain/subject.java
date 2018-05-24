@@ -12,11 +12,11 @@ public class subject {
         this.id = id;
     }
 
-    public String getSubjectName() {
+    public String getSubjectname() {
         return subjectname;
     }
 
-    public void setSubjectName(String subjectName) {
-        subjectname = subjectName;
+    public void setSubjectname(String subjectname) {
+        this.subjectname = subjectname;
     }
 }

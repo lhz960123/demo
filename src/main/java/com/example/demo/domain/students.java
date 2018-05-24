@@ -1,8 +1,6 @@
 package com.example.demo.domain;
 
 
-
-
 public class students {
     private Integer Id;
     private String Name;
@@ -33,11 +31,11 @@ public class students {
         Password = password;
     }
 
-    public Integer getRight() {
+    public Integer getRights() {
         return rights;
     }
 
-    public void setRight(Integer right) {
-        this.rights = right;
+    public void setRights(Integer rights) {
+        this.rights = rights;
     }
 }

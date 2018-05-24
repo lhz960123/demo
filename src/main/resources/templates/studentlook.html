@@ -6,21 +6,21 @@
           th:href="${#httpServletRequest.getContextPath()}+'/assets/bootstrap-table/bootstrap-table.css'"/>
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css"></link>
     <script src="../assets/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <title>Title</title>
     <style>
         .ulx li {
             list-style-type: none;
         }
     </style>
-    <title>Title</title>
 </head>
 <body bgcolor="#00a000">
 <nav class="navbar navbar-default" role="navigation">
     <div class="container">
-        <div class="navbar-brand">教师功能</div>
+        <div class="navbar-brand">学生功能</div>
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                                     aria-expanded="false">
-                <div th:text="${session.teacher.name}"/>
+                <div th:text="${session.student.name}"/>
             </a>
             </li>
             <li><a href="/">退出</a></li>
@@ -31,21 +31,18 @@
     <div class="col-sm-3">
         <div class="list-group">
             <dl>
-                <dt>试题插入</dt>
+                <dt>考试信息</dt>
                 <dd>
                     <ul class="list-group ulx">
-                        <li><a href="/teacher/upa" class="list-group-item">插入填空题</a></li>
-                        <li><a href="/teacher/upc" class="list-group-item ">插入选择题</a></li>
-                        <li><a href="/excel/ua" class="list-group-item ">导入填空题</a></li>
-                        <li><a href="/excel/uc" class="list-group-item ">导入选择题</a></li>
+                        <li><a href="/web/exam.htm" class="list-group-item">参加考试</a></li>
                     </ul>
                 </dd>
             </dl>
             <dl>
-                <dt>成绩管理</dt>
+                <dt>学生成绩</dt>
                 <dd>
                     <ul class="list-group ulx">
-                        <li><a href="/teacher/tl" class="list-group-item ">修改学生成绩</a></li>
+                        <li><a href="/web/query.htm" class="list-group-item ">查询成绩</a></li>
                     </ul>
                 </dd>
             </dl>
@@ -57,22 +54,9 @@
         <form class="form-horizontal" METHOD="get" action="/teacher/teacherlist">
             <fieldset>
                 <div id="legend" class="">
-                    <legend class="">学生成绩管理</legend>
+                    <legend class="">学生成绩查询</legend>
                 </div>
-
-
                 <div class="control-group">
-
-                    <!-- Text input-->
-                    <label class="control-label" for="input01">学生名</label>
-                    <div class="controls">
-                        <input type="text" name="username" placeholder="" id="input01" class="input-xlarge">
-                        <p class="help-block">学生的登录名</p>
-                    </div>
-                </div>
-
-                <div class="control-group">
-
                     <!-- Select Basic -->
                     <label class="control-label">课程</label>
                     <div class="controls">
@@ -85,7 +69,6 @@
                             </div>
                         </select>
                     </div>
-
                 </div>
 
                 <div class="control-group">
@@ -96,7 +79,6 @@
                         <button type="button" class="btn btn-default" onclick="doFunc();">查询</button>
                     </div>
                 </div>
-
             </fieldset>
         </form>
         <div>
@@ -105,13 +87,14 @@
         </div>
     </div>
 </div>
-
 <script th:src="${#httpServletRequest.getContextPath()}+'/assets/bootstrap/js/bootstrap.js'"></script>
 <script th:src="${#httpServletRequest.getContextPath()}+'/assets/bootstrap-table/bootstrap-table.js'"></script>
 <script th:src="${#httpServletRequest.getContextPath()}+'/assets/bootstrap-table/bootstrap-table-zh-CN.js'"></script>
 
 <script th:inline="javascript">
+
     var contextPath = [[${#httpServletRequest.getContextPath()}]];
+
     $(function () {
         initTable('', '');
     });
@@ -154,9 +137,8 @@
             ]
         });
     }
-
     function doFunc() {
-        var username = $('#input01').val();
+        var username = [[${session.student.name}]];
         var id = $('#select01').val();
         initTable(username, id);
     }

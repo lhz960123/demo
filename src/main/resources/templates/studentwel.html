@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css"></link>
+    <title>Title</title>
+    <style>
+        .ulx li {
+            list-style-type: none;
+        }
+    </style>
+</head>
+<body bgcolor="#00a000">
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-brand">学生功能</div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                    aria-expanded="false">
+                <div th:text="${session.student.name}"/>
+            </a>
+            </li>
+            <li><a href="/">退出</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="col-sm-3">
+        <div class="list-group">
+            <dl>
+                <dt>考试信息</dt>
+                <dd>
+                    <ul class="list-group ulx">
+                        <li><a href="/web/exam.htm" class="list-group-item">参加考试</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl>
+                <dt>学生成绩</dt>
+                <dd>
+                    <ul class="list-group ulx">
+                        <li><a href="/web/query.htm" class="list-group-item ">查询成绩</a></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+
+    </div>
+    <div class="col-sm-8">
+        <h2 class="text-center font-weight text-success">欢迎登录模拟考试系统</h2>
+    </div>
+</div>
+</body>
+</html>
