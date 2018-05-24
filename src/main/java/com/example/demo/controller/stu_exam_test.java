@@ -168,7 +168,7 @@ public class stu_exam_test {
                 student_answer.setId(e.getId());
                 student_answer.setAnswer_rubric(exams.easyexams_answer_check(e.getAnswer_id()).getRubric());
                 student_answer.setResult(e.getResult());
-                student_answer.setGrade(e.getGrade());
+              //  student_answer.setGrade(e.getGrade());
                 sum+=e.getGrade();
                 list_student_answers.add(student_answer);
         }
@@ -186,7 +186,7 @@ public class stu_exam_test {
                 student_choose.setId(e.getId());
                 student_choose.setChoose_rubric(exams.easyexams_choose_check(e.getChoose_id()).getRubric());
                 student_choose.setOption(exams.easyexams_option_check(e.getOption_id()).getOption());
-                student_choose.setGrade(e.getGrade());
+             //   student_choose.setGrade(e.getGrade());
                 sum+=e.getGrade();
                 list_student_chooses.add(student_choose);
         }

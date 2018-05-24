@@ -4,7 +4,8 @@ public class student_choose {
     private Integer id;
     private String choose_rubric;
     private String option;
-    private Integer grade;
+    private String tf;
+    private String grade;
 
     public Integer getId() {
         return id;
@@ -30,11 +31,19 @@ public class student_choose {
         this.option = option;
     }
 
-    public Integer getGrade() {
+    public String getTf() {
+        return tf;
+    }
+
+    public void setTf(String tf) {
+        this.tf = tf;
+    }
+
+    public String getGrade() {
         return grade;
     }
 
-    public void setGrade(Integer grade) {
+    public void setGrade(String grade) {
         this.grade = grade;
     }
 }

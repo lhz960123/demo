@@ -4,7 +4,8 @@ public class student_answer {
     private Integer id;
     private String answer_rubric;
     private String result;
-    private Integer grade;
+    private String tf;
+    private String grade;
 
     public Integer getId() {
         return id;
@@ -30,11 +31,20 @@ public class student_answer {
         this.result = result;
     }
 
-    public Integer getGrade() {
+
+    public String getTf() {
+        return tf;
+    }
+
+    public void setTf(String tf) {
+        this.tf = tf;
+    }
+
+    public String getGrade() {
         return grade;
     }
 
-    public void setGrade(Integer grade) {
+    public void setGrade(String grade) {
         this.grade = grade;
     }
 }

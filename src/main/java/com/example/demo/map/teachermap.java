@@ -13,6 +13,10 @@ public interface teachermap {
     public teachers loginteachers_name(@Param("name") String name);
     @Select("select * from teachers where password=#{password}")
     public teachers loginteachers_password(String password);
+    @Insert("insert into teachers(name,password) values(#{name},#{password})")
+    public int insertteacher(@Param("name") String name, @Param("password") String password);
+    @Update("update teachers set password=#{password} where id=#{id}")
+    public int updatateacher(teachers teachers);
     //通过成绩查询没有改的选择试题
     @Select("select * from easy_answer_grade where grade=#{grade}")
     public List<easy_answer_grade> easey_answer_check(Integer grade);

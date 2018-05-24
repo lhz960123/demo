@@ -20,6 +20,8 @@ public class admin_index {
     adminmap a;
     @Autowired
     studentsmap s;
+    @Autowired
+    teachermap t;
     @RequestMapping(value = "login",method = RequestMethod.POST)
     public String login(@RequestParam("adminname") String username,@RequestParam("adminpassword") String password ,Model model){
         admin admin=new admin();
@@ -89,4 +91,33 @@ public class admin_index {
         students.setRight(1);
         s.updatastudents_exam(students);
         return "adminexam";}
+    @RequestMapping(value = "registerteacher" ,method = RequestMethod.GET)
+    public String registerteacher(){
+        return "adminaddteacher";
+    }
+    @RequestMapping(value = "addteacher" ,method = RequestMethod.GET)
+    public String addstudents(@RequestParam("username") String username, @RequestParam("password") String password){
+       t.insertteacher(username,password);
+        return "adminaddteacher";
+    }
+    @RequestMapping(value = "updateteacher" ,method = RequestMethod.GET)
+    public String updateteacher(){
+        return "adminupdateteacher";
+    }
+    @RequestMapping(value = "selectteacher" ,method = RequestMethod.GET)
+    public String selectteacher(@RequestParam("username") String username,Model model){
+        teachers teacher=new teachers();
+        teacher=t.loginteachers_name(username);
+        model.addAttribute("teacherid",teacher.getId());
+        model.addAttribute("teachername",teacher.getName());
+        model.addAttribute("teacherpassword",teacher.getPassword());
+        return "adminupdateteacher";}
+    @RequestMapping(value = "newpasswordteacher" ,method = RequestMethod.GET)
+    public String newpasswordteacher(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("teachertid") String id,Model model){
+        teachers teacher=new teachers();
+        teacher.setId(Integer.parseInt(id));
+        teacher.setName(username);
+        teacher.setPassword(password);
+        t.updatateacher(teacher);
+        return "adminupdateteacher";}
 }

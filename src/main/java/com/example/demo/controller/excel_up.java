@@ -24,6 +24,9 @@ import java.util.List;
 public class excel_up {
     @Autowired
     teachermap t;
+    //入口
+    @RequestMapping(value = "ua" ,method = RequestMethod.GET)
+    public  String ua(){return  "excelanswer";}
     @RequestMapping(value = "up",method = RequestMethod.POST)
     public String up(@RequestParam("upfile") MultipartFile file,HttpServletRequest httpServletRequest) throws  Exception{
         System.out.println("通过传统方式form");
@@ -49,8 +52,12 @@ public class excel_up {
            e.setSubject(su_id);
            t.up_answer(e.getRubric(),e.getTf(),e.getSubject());
         }
-        return "teacherwork";
+        return "excelanswer";
     }
+    //入口
+    @RequestMapping(value = "uc" ,method = RequestMethod.GET)
+    public String uc(){return "excelchoose";}
+    @RequestMapping(value = "up_choose",method = RequestMethod.POST)
     public String up_choose(@RequestParam("upfile_choose") MultipartFile file,HttpServletRequest httpServletRequest) throws  Exception{
         System.out.println("通过传统方式form");
         InputStream in=null;
@@ -70,22 +77,22 @@ public class excel_up {
             e.setSubject(t.select_subject(String.valueOf(list.get(1))).getId());
             t.up_choose(e.getRubric(),e.getSubject());
             easyexams_choose easyexams_choose=t.easyexams_choose_check_S(e.getRubric());
-            if(String.valueOf(list.get(3)).equals(String.valueOf(list.get(6)))){
+            if(String.valueOf(list.get(2)).equals(String.valueOf(list.get(5)))){
+                t.up_option(String.valueOf(list.get(2)),easyexams_choose.getId(),2);
+                t.up_option(String.valueOf(list.get(3)),easyexams_choose.getId(),1);
+                t.up_option(String.valueOf(list.get(4)),easyexams_choose.getId(),1);
+            }else if(String.valueOf(2).equals(String.valueOf(5))){
+                t.up_option(String.valueOf(list.get(2)),easyexams_choose.getId(),1);
                 t.up_option(String.valueOf(list.get(3)),easyexams_choose.getId(),2);
                 t.up_option(String.valueOf(list.get(4)),easyexams_choose.getId(),1);
-                t.up_option(String.valueOf(list.get(5)),easyexams_choose.getId(),1);
-            }else if(String.valueOf(4).equals(String.valueOf(6))){
-                t.up_option(String.valueOf(list.get(3)),easyexams_choose.getId(),1);
-                t.up_option(String.valueOf(list.get(4)),easyexams_choose.getId(),2);
-                t.up_option(String.valueOf(list.get(5)),easyexams_choose.getId(),1);
             }else {
+                t.up_option(String.valueOf(list.get(2)),easyexams_choose.getId(),1);
                 t.up_option(String.valueOf(list.get(3)),easyexams_choose.getId(),1);
-                t.up_option(String.valueOf(list.get(4)),easyexams_choose.getId(),1);
-                t.up_option(String.valueOf(list.get(5)),easyexams_choose.getId(),3);
+                t.up_option(String.valueOf(list.get(4)),easyexams_choose.getId(),3);
             }
 
         }
-        return "teacherwork";
+        return "excelchoose";
     }
 
 }

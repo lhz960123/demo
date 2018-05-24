@@ -20,6 +20,8 @@ public class teacher_index {
     teachermap t;
     @Autowired
     examsmap exams;
+    @Autowired
+    studentsmap s;
     //登录接口
     @RequestMapping(value = "login" ,method = RequestMethod.GET)
     public String login(){
@@ -34,49 +36,20 @@ public class teacher_index {
                 //model.addAttribute("users",st.getName());
                 //跳转到其他页面
                 session.setAttribute("teacher",te);
-                //model.addAttribute("choose",t.easey_choose_check(-1));
-                //填空题
-                List<teacher_answer> list_answer=new ArrayList<teacher_answer>();
-                List<easy_answer_grade> answer=t.easey_answer_check(-1);
-                for (easy_answer_grade e:answer
-                     ) {teacher_answer teacher_answer=new teacher_answer();
-                        easyexams_answer easyexams_answer=t.easyexams_answer_check(e.getAnswer_id());
-                        teacher_answer.setId(e.getId());
-                        teacher_answer.setAnswer_rubric(easyexams_answer.getRubric());
-                        teacher_answer.setResult(e.getResult());
-                        list_answer.add(teacher_answer);
-                }
-                model.addAttribute("list_answer",list_answer);
-                //选择题
-                List<teacher_choose> list_choose=new ArrayList<teacher_choose>();
-                List<easy_choose_grade> choose=t.easey_choose_check(-1);
-                for (easy_choose_grade e:choose
-                        ) {teacher_choose teacher_choose=new teacher_choose();
-                    easyexams_choose easyexams_choose=t.easyexams_choose_check(e.getChoose_id());
-                    easyexams_option easyexams_option=t.easyexams_option_check(e.getOption_id());
-                    teacher_choose.setId(e.getId());
-                    teacher_choose.setChoose_rubric(easyexams_choose.getRubric());
-                    teacher_choose.setOption(easyexams_option.getOption());
-                    list_choose.add(teacher_choose);
-                }
-                model.addAttribute("list_answer",list_answer);
-                model.addAttribute("list_choose",list_choose);
-                if(list_answer.size()==0&&list_choose.size()==0){
-                    model.addAttribute("warning","没有学生有考试");
-                }
                 List<subject> list=new ArrayList<subject>();
                 list=exams.subjectall();
                 session.setAttribute("subject",list);
-                return "teacherwork";
+                //model.addAttribute("choose",t.easey_choose_check(-1));
+                return "teacherwel";
             }else{
                 model.addAttribute("warning","请检查密码");
 
-                return "teacher_login";
+                return "/";
             }
         }else{
             //登录失败
             model.addAttribute("warning","请检查用户名");
-            return "teacher_login";
+            return "/";
         }
 
 
@@ -96,12 +69,18 @@ public class teacher_index {
         }
         return "teacher_login";
     }
+    //入口
+    @RequestMapping(value = "upa" ,method = RequestMethod.GET)
+    public  String upa(){ return  "teacherinanswer";}
     //上传单给填空题
     @RequestMapping(value = "upanswer" ,method = RequestMethod.GET)
     public String upanswer(@RequestParam("up_answer") String up_answer,@RequestParam("up_answer_tf") String up_tf,@RequestParam("id") Integer subject_id){
             t.up_answer(up_answer,up_tf,subject_id);
-            return "teacherwork";
+            return "teacherinanswer";
     }
+    //入口
+    @RequestMapping(value = "upc" ,method = RequestMethod.GET)
+    public String upc(){return "teacherinchoose";}
     //上传单给选择题
     @RequestMapping(value = "upchoose" ,method = RequestMethod.GET)
     public String upchoose(@RequestParam("up_choose") String up_answer,@RequestParam("up_option1") String up_option1,@RequestParam("up_option2") String up_option2,@RequestParam("up_option3") String up_option3,@RequestParam("up_option_tf") String up_option_tf,@RequestParam("id") Integer subject_id){
@@ -120,6 +99,56 @@ public class teacher_index {
             t.up_option(up_option2,easyexams_choose.getId(),1);
             t.up_option(up_option3,easyexams_choose.getId(),3);
         }
-        return "teacherwork";
+        return "teacherinchoose";
+    }
+    //查询入口
+    @RequestMapping(value = "tl" ,method = RequestMethod.GET)
+    public String tl(){return  "teacherlook";}
+    //查询学生成绩功能
+    @RequestMapping(value = "teacherlist" ,method = RequestMethod.GET)
+    public String teacherlist(@RequestParam("username")String username,@RequestParam("id") String subject_id, Model model){
+        students students=new students();
+        students=s.loginstudents_name(username);
+        if (students!=null){
+            //填空题
+            List<easy_answer_grade> easy_answer_grades=exams.easey_answer_check(students.getId());
+            if(easy_answer_grades.size()!=0){
+                List<student_answer> list_student_answers=new ArrayList<student_answer>();
+                for (easy_answer_grade e:easy_answer_grades){
+                    if(exams.easyexams_answer_check(e.getAnswer_id()).getSubject()==Integer.parseInt(subject_id)){
+                     student_answer sa=new student_answer();
+                     sa.setId(e.getId());
+                     sa.setAnswer_rubric(exams.easyexams_answer_check(e.getAnswer_id()).getRubric());
+                     sa.setResult(e.getResult());
+                     sa.setTf(exams.easyexams_answer_check(e.getAnswer_id()).getTf());
+                     sa.setGrade(e.getGrade()==0?"错误":"正确");
+                     list_student_answers.add(sa);}
+                }
+                model.addAttribute("listanswers",list_student_answers);
+            }
+            //选择题
+            List<easy_choose_grade> easy_choose_grades=exams.easey_choose_check(students.getId());
+            if(easy_choose_grades.size()!=0){
+                List<student_choose> list_student_chooses=new ArrayList<student_choose>();
+                for (easy_choose_grade e:easy_choose_grades
+                        ) {student_choose student_choose=new student_choose();
+                    student_choose.setId(e.getId());
+                    student_choose.setChoose_rubric(exams.easyexams_choose_check(e.getChoose_id()).getRubric());
+                    student_choose.setOption(exams.easyexams_option_check(e.getOption_id()).getOption());
+                    List<easyexams_option> optionList=exams.select_easyexams_option(e.getChoose_id());
+                    for(easyexams_option eo:optionList){
+                         if(eo.getTf()==2){
+                             student_choose.setTf(eo.getOption());
+                         }
+                    }
+                    student_choose.setGrade(e.getGrade()!=1?"错误":"正确");
+                    list_student_chooses.add(student_choose);
+                }
+                model.addAttribute("listchoose",list_student_chooses);
+            }
+            return "teacherlook";
+        }
+        model.addAttribute("warring","不存在此学生");
+        return "teacherlook";
     }
 }
