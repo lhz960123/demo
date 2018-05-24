@@ -25,18 +25,18 @@
         });
 
 
-        $(function() {
-            $('li.option label').click(function() {
-                debugger;
-                var examId = $(this).closest('.test_content_nr_main').closest('li').attr('id'); // 得到题目ID
-                var cardLi = $('a[href=#' + examId + ']'); // 根据题目ID找到对应答题卡
-                // 设置已答题
-                if(!cardLi.hasClass('hasBeenAnswer')){
-                    cardLi.addClass('hasBeenAnswer');
-                }
-
-            });
-        });
+        // $(function() {
+        //     $('li.option label').click(function() {
+        //         debugger;
+        //         var examId = $(this).closest('.test_content_nr_main').closest('li').attr('id'); // 得到题目ID
+        //         var cardLi = $('a[href=#' + examId + ']'); // 根据题目ID找到对应答题卡
+        //         // 设置已答题
+        //         if(!cardLi.hasClass('hasBeenAnswer')){
+        //             cardLi.addClass('hasBeenAnswer');
+        //         }
+        //
+        //     });
+        // });
     </script>
     <link href="../assets/css/main.css" rel="stylesheet" type="text/css" />
     <link href="../assets/css/iconfont.css" rel="stylesheet" type="text/css" />

@@ -2,10 +2,90 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css" ></link>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" ></link>
     <title>Title</title>
 </head >
 <body bgcolor="#00a000">
-<h1>请等待评分</h1>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-brand">管理员功能</div>
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">admin <span class="caret"></span></a>
+        </li>
+        <li ><a href="/admin">退出</a></li>
+    </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="col-sm-3">
+        <div class="list-group">
+           <dl>
+               <dt>学生管理</dt>
+               <dd>
+                   <ul class="list-group">
+                       <li ><a href="#" class="list-group-item ">增加学生</a></li>
+                       <li><a  href="#" class="list-group-item ">修改学生</a></li>
+                       <li><a class="list-group-item active ">给以考试</a></li>
+                   </ul>
+               </dd>
+           </dl>
+            <dl>
+                <dt>教师管理</dt>
+                <dd>
+                    <ul class="list-group">
+                        <li><a href="#" class="list-group-item ">添加教师</a></li>
+                        <li><a href="#"  class="list-group-item">修改教师</a></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+
+    </div>
+    <div class="col-sm-8">
+
+        <form class="form-horizontal">
+            <fieldset>
+                <div id="legend" class="">
+                    <legend class="">给予考试</legend>
+                </div>
+                <div class="control-group">
+
+                    <!-- Text input-->
+                    <label class="control-label" for="input01">账号</label>
+                    <div class="controls">
+
+                            <div class="input-group">
+                                <input type="text" class="form-control"  placeholder="账号" id="input01">
+                                <span class="input-group-btn">
+						<button class="btn btn-default" type="button">
+							查询账号
+						</button>
+					</span>
+                            </div>
+
+                </div>
+
+
+
+                <div class="control-group">
+
+
+
+                <!-- Button -->
+                <div class="controls">
+                    <button class="btn btn-info">更改考试权限</button>
+                </div>
+            </div>
+
+
+
+
+        </form>
+
+
+
+
+    </div>
+</div>
 </body>
 </html>

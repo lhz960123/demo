@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" ></link>
+    <script src="../assets/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="../assets/js/html5shiv.min.js" type="text/javascript"></script>
+    <script src="../assets/js/respond.min.js" type="text/javascript"></script>
+    <script src="../assets/js/selectivizr-min.js" type="text/javascript"></script>
+    <script >
+        $(document).ready(function () {
+            $('#button1').click(function () {
+                var url1="/ad/selectteacher";
+                $("#formstu").attr("action",url1);
+                $("#formstu").submit();
+            });
+            $("#button2").click(function () {
+                var url2="/ad/newpasswordteacher";
+                $("#formstu").attr("action",url2);
+                $("#formstu").submit();
+            });
+        });
+    </script>
+    <title>Title</title>
+</head >
+<body  bgcolor="#00a000" >
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-brand">管理员功能</div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">admin <span class="caret"></span></a>
+            </li>
+            <li ><a href="/admin">退出</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="col-sm-3">
+        <div class="list-group">
+            <dl>
+                <dt>学生管理</dt>
+                <dd>
+                    <ul class="list-group">
+                        <li ><a href="/ad/register" class="list-group-item">增加学生</a></li>
+                        <li><a  href="/ad/updatestudent" class="list-group-item ">修改学生</a></li>
+                        <li><a  href="/ad/examstudent" class="list-group-item ">给以考试</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl>
+                <dt>教师管理</dt>
+                <dd>
+                    <ul class="list-group">
+                        <li><a href="/ad/registerteacher" class="list-group-item ">添加教师</a></li>
+                        <li><a href="#"  class="list-group-item active">修改教师</a></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+
+    </div>
+    <div class="col-sm-8">
+
+        <form class="form-horizontal" action="/" id="formstu" method="get" >
+            <fieldset>
+                <div id="legend" class="">
+                    <legend class="">教师修改</legend>
+                </div>
+                <div class="control-group">
+
+                    <!-- Appended input-->
+                    <label class="control-label">用户名</label>
+                    <div class="controls">
+                        <div class="input-append">
+
+                            <input class="span2" placeholder="username" name="username" th:value="${teachername}" type="text">
+                            <button id="button1" name="button1" class="add-on" >查询</button>
+
+                        </div>
+                        <p class="help-block">查询教师名字</p>
+                    </div>
+
+                </div><div class="control-group">
+
+                <!-- Text input-->
+                <label class="control-label" for="input02">密码</label>
+                <div class="controls">
+                    <input type="text" id="input02" placeholder="password" th:value="${teacherpassword}" name="password" class="input-xlarge">
+                    <p class="help-block">修改教师密码</p>
+                </div>
+            </div><div class="control-group">
+                <label class="control-label"></label>
+                <input type="hidden" th:value="${teacherid}" name="teachertid"/>
+                <!-- Button -->
+                <div class="controls">
+                    <button id="button2"  name="button2"  class="btn btn-success">修改</button>
+                </div>
+            </div>
+            </fieldset>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

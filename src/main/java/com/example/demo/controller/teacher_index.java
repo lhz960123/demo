@@ -125,13 +125,16 @@ public class teacher_index {
                      list_student_answers.add(sa);}
                 }
                 model.addAttribute("listanswers",list_student_answers);
+
             }
             //选择题
             List<easy_choose_grade> easy_choose_grades=exams.easey_choose_check(students.getId());
             if(easy_choose_grades.size()!=0){
                 List<student_choose> list_student_chooses=new ArrayList<student_choose>();
                 for (easy_choose_grade e:easy_choose_grades
-                        ) {student_choose student_choose=new student_choose();
+                        ) {
+                    if(exams.easyexams_choose_check(e.getChoose_id()).getSubject()==Integer.parseInt(subject_id)){
+                    student_choose student_choose=new student_choose();
                     student_choose.setId(e.getId());
                     student_choose.setChoose_rubric(exams.easyexams_choose_check(e.getChoose_id()).getRubric());
                     student_choose.setOption(exams.easyexams_option_check(e.getOption_id()).getOption());
@@ -143,7 +146,7 @@ public class teacher_index {
                     }
                     student_choose.setGrade(e.getGrade()!=1?"错误":"正确");
                     list_student_chooses.add(student_choose);
-                }
+                }}
                 model.addAttribute("listchoose",list_student_chooses);
             }
             return "teacherlook";

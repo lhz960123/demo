@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" ></link>
+    <title>Title</title>
+</head >
+<body  bgcolor="#00a000" >
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-brand">教师功能</div>
+        <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><div th:text="${session.teacher.name}"/></a>
+            </li>
+            <li ><a href="/">退出</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="col-sm-3">
+        <div class="list-group">
+            <dl>
+                <dt>试题插入</dt>
+                <dd>
+                    <ul class="list-group">
+                        <li ><a href="/teacher/upa" class="list-group-item">插入填空题</a></li>
+                        <li><a  href="#" class="list-group-item active ">插入选择题</a></li>
+                        <li><a  href="#" class="list-group-item ">导入填空题</a></li>
+                        <li><a  href="#" class="list-group-item ">导入选择题</a></li>
+                    </ul>
+                </dd>
+            </dl>
+            <dl>
+                <dt>成绩管理</dt>
+                <dd>
+                    <ul class="list-group">
+                        <li><a href="#" class="list-group-item ">修改学生成绩</a></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+
+    </div>
+    <div class="col-sm-8">
+
+        <form class="form-horizontal" action="/teacher/upchoose" method="get">
+            <fieldset>
+                <div id="legend" class="">
+                    <legend class="">插入填空题</legend>
+                </div>
+
+
+
+
+                <div class="control-group">
+
+                    <!-- Text input-->
+                    <label class="control-label" for="input01">选择题</label>
+                    <div class="controls">
+                        <input type="text" placeholder=""  id="input01"  name="up_choose" class="input-xlarge">
+                        <p class="help-block">选择题题目</p>
+                    </div>
+                </div>
+
+                <div class="control-group">
+
+                    <!-- Text input-->
+                    <label class="control-label" for="input02">选项一</label>
+                    <div class="controls">
+                        <input type="text" placeholder="" id="input02" name="up_option1"  class="input-xlarge">
+                        <p class="help-block">第一个选择选项</p>
+                    </div>
+                </div>
+
+                <div class="control-group">
+
+                    <!-- Text input-->
+                    <label class="control-label" for="input03">选项二</label>
+                    <div class="controls">
+                        <input type="text" placeholder="" id="input03" name="up_option2" class="input-xlarge">
+                        <p class="help-block">第二个选择选项</p>
+                    </div>
+                </div><div class="control-group">
+
+                <!-- Text input-->
+                <label class="control-label" for="input04">选项三</label>
+                <div class="controls">
+                    <input type="text" placeholder="" id="input04" name="up_option3" class="input-xlarge">
+                    <p class="help-block">第三个选择选项</p>
+                </div>
+            </div><div class="control-group">
+
+                <!-- Text input-->
+                <label class="control-label" for="input05" >正确选项</label>
+                <div class="controls">
+                    <input type="text" placeholder="" id="input05" name="up_option_tf" class="input-xlarge">
+                    <p class="help-block">正确的选项</p>
+                </div>
+            </div><div class="control-group">
+
+                <!-- Select Basic -->
+                <label class="control-label">选择专业</label>
+                <div class="controls">
+                    <select class="input-xlarge" name="id">
+                        <option selected="selected" >请选择你上传的专业</option>
+                        <div th:each="subject:${session.subject}">
+                            <option  th:value="${subject.id}"><div th:text="${subject.SubjectName}"/></option>
+                        </div>
+                    </select>
+                </div>
+
+            </div><div class="control-group">
+                <label class="control-label"></label>
+
+                <!-- Button -->
+                <div class="controls">
+                    <input type="submit" value="插入" class="btn btn-success"></input>
+                </div>
+            </div>
+
+            </fieldset>
+        </form>
+
+    </div>
+</div>
+</body>
+</html>
