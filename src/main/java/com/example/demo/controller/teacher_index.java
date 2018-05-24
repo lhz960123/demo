@@ -108,6 +108,7 @@ public class teacher_index {
     @RequestMapping(value = "teacherlist" ,method = RequestMethod.GET)
     public String teacherlist(@RequestParam("username")String username,@RequestParam("id") String subject_id, Model model){
         students students=new students();
+        List<exam_show> list_show=new ArrayList<exam_show>();
         students=s.loginstudents_name(username);
         if (students!=null){
             //填空题
@@ -124,7 +125,14 @@ public class teacher_index {
                      sa.setGrade(e.getGrade()==0?"错误":"正确");
                      list_student_answers.add(sa);}
                 }
-                model.addAttribute("listanswers",list_student_answers);
+                for (student_answer s:list_student_answers){
+                    exam_show exam_show=new exam_show();
+                    exam_show.setRubric("填空题："+s.getAnswer_rubric());
+                    exam_show.setResult(s.getResult());
+                    exam_show.setTf(s.getTf());
+                    exam_show.setGrade(s.getGrade());
+                    list_show.add(exam_show);
+                }
 
             }
             //选择题
@@ -144,11 +152,20 @@ public class teacher_index {
                              student_choose.setTf(eo.getOption());
                          }
                     }
-                    student_choose.setGrade(e.getGrade()!=1?"错误":"正确");
+                    student_choose.setGrade(e.getGrade()!=1?"正确":"错误");
                     list_student_chooses.add(student_choose);
                 }}
-                model.addAttribute("listchoose",list_student_chooses);
+                for(student_choose s:list_student_chooses){
+                    exam_show exam_show=new exam_show();
+                    exam_show.setRubric("选择题："+s.getChoose_rubric());
+                    exam_show.setResult(s.getOption());
+                    exam_show.setTf(s.getTf());
+                    exam_show.setGrade(s.getGrade());
+                    list_show.add(exam_show);
+                }
+
             }
+            model.addAttribute("exam_show",list_show);
             return "teacherlook";
         }
         model.addAttribute("warring","不存在此学生");
